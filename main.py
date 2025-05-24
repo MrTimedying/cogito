@@ -65,9 +65,6 @@ class MainWindow(QMainWindow):
         self.menu_widget.execute_clicked.connect(lambda: self.set_mode("execute"))
         self.menu_widget.ongoing_research_clicked.connect(lambda: self.set_mode("ongoing_research"))
         self.menu_widget.archive_research_clicked.connect(lambda: self.set_mode("archive_research"))
-        
-        # Connect action widget signals
-        self.action_widget.action_triggered.connect(self.handle_action)
     
     def set_mode(self, mode):
         """
@@ -80,20 +77,6 @@ class MainWindow(QMainWindow):
         
         # Update the main workspace
         self.main_workspace.set_mode(mode)
-        
-        # Clear and update action suggestions based on the mode
-        self.action_widget.clear_suggestions()
-        
-        # Add example actions based on the selected mode
-        if mode == "execute":
-            self.action_widget.add_suggestion("Start new execution")
-            self.action_widget.add_suggestion("Load previous execution")
-        elif mode == "ongoing_research":
-            self.action_widget.add_suggestion("Create new research")
-            self.action_widget.add_suggestion("Continue existing research")
-        elif mode == "archive_research":
-            self.action_widget.add_suggestion("Browse archives")
-            self.action_widget.add_suggestion("Search archives")
     
     def handle_action(self, action_text):
         """
@@ -103,7 +86,6 @@ class MainWindow(QMainWindow):
             action_text (str): The text of the action that was triggered
         """
         print(f"Action triggered: {action_text}")
-        # This will be expanded to handle different actions
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
