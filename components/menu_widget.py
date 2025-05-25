@@ -7,7 +7,6 @@ class MenuWidget(QWidget):
     """
     execute_clicked = Signal()
     ongoing_research_clicked = Signal()
-    archive_research_clicked = Signal()
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -39,16 +38,14 @@ class MenuWidget(QWidget):
         # Create buttons for each functionality
         self.execute_button = self._create_button("Execute", self.execute_clicked)
         self.ongoing_research_button = self._create_button("Ongoing Research", self.ongoing_research_clicked)
-        self.archive_research_button = self._create_button("Archive Research", self.archive_research_clicked)
         
         # Add buttons to layout
         layout.addWidget(self.execute_button)
         layout.addWidget(self.ongoing_research_button)
-        layout.addWidget(self.archive_research_button)
         
         # Add stretch to push buttons to the top
         layout.addStretch(1)
-    
+
     def _create_button(self, text, signal):
         """Helper method to create styled buttons"""
         button = QPushButton(text)
@@ -71,4 +68,4 @@ class MenuWidget(QWidget):
             }
         """)
         button.clicked.connect(lambda: signal.emit())
-        return button 
+        return button
