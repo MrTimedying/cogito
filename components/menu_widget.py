@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QCheckBox
 from PySide6.QtCore import Signal, Qt
 
 class MenuWidget(QWidget):
@@ -11,17 +11,30 @@ class MenuWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         
-        # Set Cursor-like dark theme colors
+        # Set Cursor-like dark theme colors (using Tailwind Zinc palette)
         self.setStyleSheet("""
             QWidget {
-                background-color: #21252b; 
-                color: #abb2bf;
+                background-color: #27272a; /* zinc-800 */
+                color: #d4d4d8; /* zinc-300 */
             }
             QLabel {
                 font-size: 14px;
                 font-weight: bold;
                 margin-bottom: 10px;
-                color: #d7dae0;
+                color: #fafafa; /* zinc-50 */
+            }
+            QCheckBox {
+                color: #d4d4d8; /* zinc-300 */
+            }
+            QCheckBox::indicator {
+                width: 15px;
+                height: 15px;
+            }
+            QCheckBox::indicator:unchecked {
+                image: url(checkbox_unchecked.png);
+            }
+            QCheckBox::indicator:checked {
+                image: url(checkbox_checked.png);
             }
         """)
         
@@ -43,6 +56,12 @@ class MenuWidget(QWidget):
         layout.addWidget(self.execute_button)
         layout.addWidget(self.ongoing_research_button)
         
+        # Add debug mode checkbox (fixed size)
+        self.debug_checkbox = QCheckBox("Debug Mode")
+        self.debug_checkbox.setFixedHeight(22)
+        self.debug_checkbox.setFixedWidth(120)
+        layout.addWidget(self.debug_checkbox)
+        
         # Add stretch to push buttons to the top
         layout.addStretch(1)
 
@@ -52,19 +71,19 @@ class MenuWidget(QWidget):
         button.setMinimumHeight(32)  # Smaller height
         button.setStyleSheet("""
             QPushButton {
-                background-color: #2c313a;
-                color: #abb2bf;
-                border: 1px solid #181a1f;
+                background-color: #3f3f46; /* zinc-700 */
+                color: #d4d4d8; /* zinc-300 */
+                border: 1px solid #52525b; /* zinc-600 */
                 border-radius: 4px;
                 padding: 4px 12px;
                 font-size: 12px;
                 text-align: left;
             }
             QPushButton:hover {
-                background-color: #3a404b;
+                background-color: #52525b; /* zinc-600 */
             }
             QPushButton:pressed {
-                background-color: #4d78cc;
+                background-color: #71717a; /* zinc-500 */
             }
         """)
         button.clicked.connect(lambda: signal.emit())
